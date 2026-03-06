@@ -6,7 +6,7 @@ import Logo from "./Logo";
 import { useTheme } from "@/hooks/useTheme";
 
 export default function Footer() {
-  const { resolvedTheme } = useTheme();
+  const { resolvedTheme, mounted } = useTheme();
 
   return (
     <footer id="contact" className="footer">
@@ -14,7 +14,7 @@ export default function Footer() {
         <div>
           <div className="footer-brand footer-logo-container">
             <Logo 
-              theme={resolvedTheme}
+              theme={mounted ? resolvedTheme : 'light'} // Use light as fallback during SSR
               size="small"
               clickable={true}
               priority={false}

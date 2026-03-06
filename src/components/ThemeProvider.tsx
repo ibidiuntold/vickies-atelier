@@ -9,6 +9,7 @@ interface ThemeContextValue {
   theme: Theme;
   resolvedTheme: ResolvedTheme;
   setTheme: (theme: Theme) => void;
+  mounted: boolean;
 }
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -18,13 +19,14 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setThemeState] = useState<Theme>('system');
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('dark');
+  // Always start with light theme to match server rendering
+  const [theme, setThemeState] = useState<Theme>('light');
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('light');
   const [mounted, setMounted] = useState(false);
 
   // Get system preference
   const getSystemTheme = (): ResolvedTheme => {
-    if (typeof window === 'undefined') return 'dark';
+    if (typeof window === 'undefined') return 'light';
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   };
 
@@ -38,6 +40,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Apply theme to document root
   const applyTheme = (resolved: ResolvedTheme) => {
+    if (typeof window === 'undefined') return;
     const root = document.documentElement;
     if (resolved === 'dark') {
       root.classList.add('dark');
@@ -62,7 +65,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
   };
 
-  // Initialize theme on mount
+  // Initialize theme on mount (client-side only)
   useEffect(() => {
     let initialTheme: Theme = 'system';
     
@@ -86,7 +89,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Listen for system theme changes
   useEffect(() => {
-    if (theme !== 'system') return;
+    if (!mounted || theme !== 'system') return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
@@ -98,11 +101,10 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme]);
+  }, [theme, mounted]);
 
-  // Render children immediately - theme is already applied by inline script in layout
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   );

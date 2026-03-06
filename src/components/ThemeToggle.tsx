@@ -3,7 +3,7 @@
 import { useTheme } from '@/hooks/useTheme';
 
 export function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme, mounted } = useTheme();
 
   const handleToggle = () => {
     // Toggle between light and dark (not using 'system' for manual toggle)
@@ -19,18 +19,21 @@ export function ThemeToggle() {
     }
   };
 
+  // Use light as fallback during SSR to prevent hydration mismatch
+  const currentTheme = mounted ? resolvedTheme : 'light';
+
   return (
     <button
       onClick={handleToggle}
       onKeyDown={handleKeyDown}
       className="theme-toggle"
-      aria-label={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
-      aria-pressed={resolvedTheme === 'dark'}
+      aria-label={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
+      aria-pressed={currentTheme === 'dark'}
       type="button"
     >
       {/* Sun icon for light mode */}
       <svg
-        className={`theme-toggle__icon theme-toggle__icon--sun ${resolvedTheme === 'light' ? 'active' : ''}`}
+        className={`theme-toggle__icon theme-toggle__icon--sun ${currentTheme === 'light' ? 'active' : ''}`}
         width="20"
         height="20"
         viewBox="0 0 24 24"
@@ -54,7 +57,7 @@ export function ThemeToggle() {
 
       {/* Moon icon for dark mode */}
       <svg
-        className={`theme-toggle__icon theme-toggle__icon--moon ${resolvedTheme === 'dark' ? 'active' : ''}`}
+        className={`theme-toggle__icon theme-toggle__icon--moon ${currentTheme === 'dark' ? 'active' : ''}`}
         width="20"
         height="20"
         viewBox="0 0 24 24"

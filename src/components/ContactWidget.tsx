@@ -12,7 +12,30 @@ export function ContactWidget({
   offset = { x: 20, y: 20 }
 }: ContactWidgetProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const widgetRef = useRef<HTMLDivElement>(null);
+
+  // Show tooltip after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isExpanded) {
+        setShowTooltip(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [isExpanded]);
+
+  // Hide tooltip when widget is expanded or after 5 seconds
+  useEffect(() => {
+    if (showTooltip && !isExpanded) {
+      const timer = setTimeout(() => {
+        setShowTooltip(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showTooltip, isExpanded]);
 
   // Click outside to collapse
   useEffect(() => {
@@ -57,26 +80,42 @@ export function ContactWidget({
     >
       {/* Collapsed state - icon button */}
       {!isExpanded && (
-        <button
-          className="contact-widget__trigger"
-          onClick={() => setIsExpanded(true)}
-          aria-label="Open contact options"
-          aria-expanded="false"
-        >
-          <svg 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2"
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            aria-hidden="true"
+        <>
+          <button
+            className="contact-widget__trigger"
+            onClick={() => {
+              setIsExpanded(true);
+              setShowTooltip(false);
+            }}
+            aria-label="Open contact options"
+            aria-expanded="false"
           >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        </button>
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2"
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </button>
+
+          {/* Tooltip */}
+          {showTooltip && (
+            <div 
+              className="contact-widget__tooltip"
+              role="tooltip"
+              aria-live="polite"
+            >
+              Want to contact us? Click me!
+            </div>
+          )}
+        </>
       )}
 
       {/* Expanded state - contact options */}
