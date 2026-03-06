@@ -40,7 +40,10 @@ export default function Carousel({ images }: CarouselProps) {
             width={380}
             height={507}
             className="carousel-img"
-            priority={i < 3}
+            priority={i === 0}
+            loading={i === 0 ? undefined : "lazy"}
+            sizes="(max-width: 860px) 90vw, 380px"
+            quality={85}
           />
         ))}
       </div>

@@ -1,0 +1,98 @@
+[
+  {
+    "page": "Homepage",
+    "url": "http://localhost:3000",
+    "desktop": {
+      "score": 0.91,
+      "metrics": {
+        "fcp": 374.62005,
+        "lcp": 1181.170175,
+        "tbt": 11,
+        "cls": 0.07057765674660202,
+        "si": 2454.341057836063
+      }
+    },
+    "mobile": {
+      "score": 0.69,
+      "metrics": {
+        "fcp": 1325.52125,
+        "lcp": 7018.409374999999,
+        "tbt": 174,
+        "cls": 0,
+        "si": 5865.219168827099
+      }
+    }
+  },
+  {
+    "page": "Services",
+    "url": "http://localhost:3000/services",
+    "desktop": {
+      "score": 1,
+      "metrics": {
+        "fcp": 272.06,
+        "lcp": 723.24,
+        "tbt": 6,
+        "cls": 0.0011739750986942,
+        "si": 568.8363611359908
+      }
+    },
+    "mobile": {
+      "score": 0.9,
+      "metrics": {
+        "fcp": 929.5527499999998,
+        "lcp": 3180.211,
+        "tbt": 145,
+        "cls": 0,
+        "si": 3696.1677307293016
+      }
+    }
+  },
+  {
+    "page": "Order",
+    "url": "http://localhost:3000/order",
+    "desktop": {
+      "score": 1,
+      "metrics": {
+        "fcp": 238.64135,
+        "lcp": 695.5654,
+        "tbt": 0,
+        "cls": 0.0011552414535022713,
+        "si": 460.6199525783715
+      }
+    },
+    "mobile": {
+      "score": 0.81,
+      "metrics": {
+        "fcp": 839.36245,
+        "lcp": 3476.4498000000003,
+        "tbt": 405,
+        "cls": 0,
+        "si": 2472.5941523996044
+      }
+    }
+  },
+  {
+    "page": "Consultation",
+    "url": "http://localhost:3000/consultation",
+    "desktop": {
+      "score": 1,
+      "metrics": {
+        "fcp": 241.23045,
+        "lcp": 702.9218000000001,
+        "tbt": 0,
+        "cls": 0.0011552414535022713,
+        "si": 446.5592086214216
+      }
+    },
+    "mobile": {
+      "score": 0.89,
+      "metrics": {
+        "fcp": 832.10315,
+        "lcp": 3269.4125999999997,
+        "tbt": 213,
+        "cls": 0,
+        "si": 993.4246429572986
+      }
+    }
+  }
+]

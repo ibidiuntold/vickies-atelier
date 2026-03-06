@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Collection, OrderPayload } from "@/types";
+import { PhotoUpload } from "./PhotoUpload";
+import { MeasurementDiagrams } from "./MeasurementDiagrams";
 
 interface OrderFormProps {
   initialCollection?: Collection;
@@ -66,17 +68,94 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [readyDate, setReadyDate] = useState("");
+  const [photos, setPhotos] = useState<File[]>([]);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
-  const set = (field: keyof OrderPayload, value: string) =>
+  const set = (field: keyof OrderPayload, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+    // Clear validation error when user starts typing
+    if (validationErrors[field]) {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  };
+
+  /**
+   * Validates email format
+   * Requirements: 17.2
+   */
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+  };
+
+  // Validate measurement fields
+  const validateMeasurements = (): boolean => {
+    const errors: Record<string, string> = {};
+    
+    MEASUREMENT_FIELDS.forEach(({ key, label }) => {
+      if (!form[key] || form[key].trim() === "") {
+        errors[key] = `${label} is required`;
+      }
+    });
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Validate contact fields
+  const validateContact = (): boolean => {
+    const errors: Record<string, string> = {};
+    
+    if (!form.name || form.name.trim() === "") {
+      errors.name = "Name is required";
+    } else if (form.name.trim().length < 2) {
+      errors.name = "Name must be at least 2 characters";
+    }
+
+    if (!form.email || form.email.trim() === "") {
+      errors.email = "Email is required";
+    } else if (!validateEmail(form.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Check if all measurements are filled
+  const allMeasurementsFilled = MEASUREMENT_FIELDS.every(
+    ({ key }) => form[key] && form[key].trim() !== ""
+  );
 
   const handleSubmit = async () => {
+    // Validate contact fields before submission
+    if (!validateContact()) {
+      return;
+    }
+
     setStatus("loading");
     try {
+      // Create FormData to handle file uploads
+      const formData = new FormData();
+      
+      // Add all form fields
+      Object.entries(form).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      // Add photos
+      photos.forEach((photo, index) => {
+        formData.append(`photo_${index}`, photo);
+      });
+      formData.append('photoCount', photos.length.toString());
+
       const res = await fetch("/api/order", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: formData,
       });
       if (!res.ok) throw new Error("Failed");
       const data = await res.json();
@@ -169,18 +248,43 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
               All measurements in centimetres (cm). Take them over fitted
               undergarments for best accuracy.
             </p>
+
+            {/* Measurement Diagrams */}
+            <MeasurementDiagrams
+              measurements={['bust', 'waist', 'hips', 'height', 'shoulder', 'sleeve', 'inseam']}
+              tutorialUrl="https://www.youtube.com/watch?v=your-tutorial-video"
+            />
+
+            {/* Photo Upload */}
+            <PhotoUpload
+              maxFiles={5}
+              maxSizeMB={10}
+              onFilesChange={setPhotos}
+              acceptedFormats={['image/jpeg', 'image/png', 'image/heic', 'image/webp']}
+            />
+
             <div className="measurement-grid">
               {MEASUREMENT_FIELDS.map(({ key, label }) => (
                 <div className="form-field" key={key}>
-                  <label htmlFor={key}>{label}</label>
+                  <label htmlFor={key}>
+                    {label} <span className="required-indicator">*</span>
+                  </label>
                   <input
                     id={key}
                     type="text"
                     placeholder="e.g. 90"
                     value={form[key]}
                     onChange={(e) => set(key, e.target.value)}
+                    className={validationErrors[key] ? 'error' : ''}
+                    aria-invalid={!!validationErrors[key]}
+                    aria-describedby={validationErrors[key] ? `${key}-error` : undefined}
                   />
                   <span className="unit-hint">cm</span>
+                  {validationErrors[key] && (
+                    <span id={`${key}-error`} className="field-error" role="alert">
+                      {validationErrors[key]}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
@@ -201,7 +305,16 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
               >
                 ← Back
               </button>
-              <button className="btn" onClick={() => setStep(3)}>
+              <button 
+                className="btn" 
+                onClick={() => {
+                  if (validateMeasurements()) {
+                    setStep(3);
+                  }
+                }}
+                disabled={!allMeasurementsFilled}
+                title={!allMeasurementsFilled ? "Please fill in all required measurement fields" : ""}
+              >
                 Continue →
               </button>
             </div>
@@ -225,7 +338,15 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
                 required
                 value={form.name}
                 onChange={(e) => set("name", e.target.value)}
+                className={validationErrors.name ? 'error' : ''}
+                aria-invalid={!!validationErrors.name}
+                aria-describedby={validationErrors.name ? 'name-error' : undefined}
               />
+              {validationErrors.name && (
+                <span id="name-error" className="field-error" role="alert">
+                  {validationErrors.name}
+                </span>
+              )}
             </div>
             <div className="form-field">
               <label htmlFor="email">Email Address</label>
@@ -236,7 +357,15 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
                 required
                 value={form.email}
                 onChange={(e) => set("email", e.target.value)}
+                className={validationErrors.email ? 'error' : ''}
+                aria-invalid={!!validationErrors.email}
+                aria-describedby={validationErrors.email ? 'email-error' : undefined}
               />
+              {validationErrors.email && (
+                <span id="email-error" className="field-error" role="alert">
+                  {validationErrors.email}
+                </span>
+              )}
             </div>
             {status === "error" && (
               <p className="form-error">
@@ -255,7 +384,7 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
                 className="btn"
                 onClick={handleSubmit}
                 disabled={
-                  status === "loading" || !form.name || !form.email
+                  status === "loading" || !form.name || !form.email || Object.keys(validationErrors).length > 0
                 }
               >
                 {status === "loading" ? "Submitting…" : "Place Order"}

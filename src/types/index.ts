@@ -23,6 +23,7 @@ export interface OrderEmailData extends OrderPayload {
   readyDate: string;
   adminEmail: string;
   estimatedReadyDate?: string;
+  photoAttachments?: string[]; // Array of file paths to photo attachments
 }
 
 export interface EnquiryPayload {

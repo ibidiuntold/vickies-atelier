@@ -7,7 +7,7 @@ interface ContactWidgetProps {
   offset?: { x: number; y: number };
 }
 
-export function ContactWidget({ 
+export default function ContactWidget({ 
   position = 'bottom-right',
   offset = { x: 20, y: 20 }
 }: ContactWidgetProps) {

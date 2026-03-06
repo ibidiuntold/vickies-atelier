@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 // Lazy load ContactWidget to avoid blocking page render (Requirement 16.11)
 const ContactWidget = dynamic(
-  () => import('./ContactWidget').then((mod) => mod.ContactWidget),
+  () => import('./ContactWidget'),
   { ssr: false }
 );
 

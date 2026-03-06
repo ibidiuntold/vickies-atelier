@@ -1,9 +1,20 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   return (
     <section className="hero" role="banner" aria-label="Showcase">
-      <div className="hero-media" aria-hidden="true" />
+      <div className="hero-media" aria-hidden="true">
+        <Image
+          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2400&auto=format&fit=crop"
+          alt=""
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          style={{ objectFit: 'cover' }}
+        />
+      </div>
       <div className="container hero-content">
         <h1 className="headline">Vickie&apos;s Atelier</h1>
         <p className="punch">

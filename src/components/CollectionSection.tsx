@@ -6,7 +6,7 @@ interface CollectionSectionProps {
   id: Collection;
   title: string;
   tagline: string;
-  ctaLabel: string;
+  ctaLabel?: string; // Optional - no longer used, kept for backward compatibility
   images: ImageItem[];
 }
 
@@ -25,9 +25,14 @@ export default function CollectionSection({
             <h3>{title}</h3>
             <p>{tagline}</p>
           </div>
-          <Link href={`/order?collection=${id}`} className="btn">
-            {ctaLabel}
-          </Link>
+          <div className="collection-actions">
+            <Link href={`/consultation?collection=${id}`} className="btn">
+              Book Consultation
+            </Link>
+            <Link href={`/order?collection=${id}`} className="btn">
+              Order Now
+            </Link>
+          </div>
         </div>
         <Carousel images={images} />
       </div>

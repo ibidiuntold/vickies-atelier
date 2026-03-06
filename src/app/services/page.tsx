@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Services — Vickie's Atelier",
@@ -103,9 +104,13 @@ export default function ServicesPage() {
             </Link>
           </div>
           <div className="split-media">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1520975693416-35a1b0231d7e?q=80&w=1200&auto=format&fit=crop"
               alt="Atelier craftsmanship"
+              width={1200}
+              height={800}
+              loading="lazy"
+              sizes="(max-width: 860px) 100vw, 50vw"
               style={{ borderRadius: "var(--radius)" }}
             />
           </div>
