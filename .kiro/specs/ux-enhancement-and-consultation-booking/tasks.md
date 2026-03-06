@@ -6,7 +6,7 @@ This implementation plan breaks down the UX enhancement and consultation booking
 
 ## Tasks
 
-- [-] 1. Set up Tailwind CSS integration and configuration
+- [x] 1. Set up Tailwind CSS integration and configuration
   - Install Tailwind CSS, PostCSS, and autoprefixer as dependencies
   - Create tailwind.config.ts with custom theme configuration matching existing design tokens
   - Configure PostCSS to process Tailwind directives
@@ -18,8 +18,8 @@ This implementation plan breaks down the UX enhancement and consultation booking
   - Test that existing styles remain unaffected
   - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 7.10, 7.11, 7.12_
 
-- [~] 2. Implement dark/light mode theme system
-  - [~] 2.1 Create theme context and provider
+- [x] 2. Implement dark/light mode theme system
+  - [x] 2.1 Create theme context and provider
     - Create src/hooks/useTheme.ts hook for theme state management
     - Create src/components/ThemeProvider.tsx with theme context
     - Implement system preference detection using matchMedia
@@ -28,7 +28,7 @@ This implementation plan breaks down the UX enhancement and consultation booking
     - Prevent flash of incorrect theme (FOIT) with inline script
     - _Requirements: 4.1, 4.2, 4.3, 4.6, 4.7, 14.1, 14.2, 14.3, 14.4, 14.8, 14.9, 14.10_
   
-  - [~] 2.2 Create theme toggle component
+  - [x] 2.2 Create theme toggle component
     - Create src/components/ThemeToggle.tsx with sun/moon icons
     - Implement toggle functionality with smooth transitions
     - Add keyboard accessibility (Enter/Space to toggle)
@@ -36,21 +36,21 @@ This implementation plan breaks down the UX enhancement and consultation booking
     - Style toggle to match luxury aesthetic
     - _Requirements: 4.4, 4.5, 4.12, 15.10_
   
-  - [~] 2.3 Define CSS custom properties for themes
+  - [x] 2.3 Define CSS custom properties for themes
     - Define light mode color values in global CSS
     - Define dark mode color values in global CSS
     - Ensure smooth transitions between theme changes
     - Test color contrast ratios meet WCAG 2.1 AA standards
     - _Requirements: 4.10, 4.11, 4.12, 15.6, 20.6, 20.7_
   
-  - [~] 2.4 Integrate theme provider into app layout
+  - [x] 2.4 Integrate theme provider into app layout
     - Wrap app with ThemeProvider in src/app/layout.tsx
     - Add ThemeToggle to Header component
     - Ensure theme toggle is accessible on mobile
     - _Requirements: 4.4, 8.12_
 
-- [~] 3. Enhance logo implementation with theme variants
-  - [~] 3.1 Prepare logo assets
+- [ ] 3. Enhance logo implementation with theme variants
+  - [x] 3.1 Prepare logo assets
     - Optimize logo files for web delivery (WebP with fallbacks)
     - Create light mode logo variant (for light backgrounds)
     - Create dark mode logo variant (for dark backgrounds)
@@ -58,21 +58,21 @@ This implementation plan breaks down the UX enhancement and consultation booking
     - Add appropriate alt text for accessibility
     - _Requirements: 5.5, 5.6, 5.7, 5.8, 5.9, 16.2_
   
-  - [~] 3.2 Update Header component with larger, theme-aware logo
+  - [x] 3.2 Update Header component with larger, theme-aware logo
     - Increase logo size in Header component
     - Implement theme-based logo switching
     - Make logo clickable to return to homepage
     - Ensure logo is responsive across screen sizes
     - _Requirements: 5.1, 5.8, 5.9, 5.10_
   
-  - [~] 3.3 Update Footer component with conditional logo display
+  - [x] 3.3 Update Footer component with conditional logo display
     - Display theme-aware logo in Footer on desktop (>860px)
     - Hide logo from Footer on mobile (≤860px)
     - Ensure logo maintains aspect ratio
     - _Requirements: 5.2, 5.3, 5.4, 5.6, 5.7_
 
-- [~] 4. Implement floating contact widget
-  - [~] 4.1 Create ContactWidget component
+- [ ] 4. Implement floating contact widget
+  - [x] 4.1 Create ContactWidget component
     - Create src/components/ContactWidget.tsx with collapsible design
     - Implement fixed positioning at bottom-right corner
     - Add expand/collapse animation
@@ -80,7 +80,7 @@ This implementation plan breaks down the UX enhancement and consultation booking
     - Add close button when expanded
     - _Requirements: 2.1, 2.2, 18.1, 18.2, 18.3, 18.4, 18.5, 18.6, 18.10, 18.12_
   
-  - [~] 4.2 Add contact methods to widget
+  - [x] 4.2 Add contact methods to widget
     - Display email address (vickiesatelier@gmail.com) with mailto link
     - Display WhatsApp number (08118660080) with WhatsApp link
     - Display call line number (081607422412) with tel link
@@ -88,7 +88,7 @@ This implementation plan breaks down the UX enhancement and consultation booking
     - Add text labels alongside icons for accessibility
     - _Requirements: 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 15.7_
   
-  - [~] 4.3 Style widget with theme awareness and accessibility
+  - [x] 4.3 Style widget with theme awareness and accessibility
     - Apply theme-aware styling that adapts to light/dark mode
     - Ensure minimum 44px tap targets on mobile
     - Add ARIA labels for icon-only buttons
@@ -98,22 +98,22 @@ This implementation plan breaks down the UX enhancement and consultation booking
     - Ensure widget doesn't overlap Footer on desktop
     - _Requirements: 2.10, 8.4, 8.5, 15.4, 15.11, 15.12, 18.7, 18.8, 18.9, 18.11_
   
-  - [~] 4.4 Integrate widget into app layout
+  - [x] 4.4 Integrate widget into app layout
     - Add ContactWidget to src/app/layout.tsx
     - Ensure widget is accessible from all pages
     - Test widget doesn't obstruct important content
     - Lazy load widget to avoid blocking page render
     - _Requirements: 2.9, 9.10, 16.11_
 
-- [~] 5. Create Google Calendar integration infrastructure
-  - [~] 5.1 Set up Google Calendar API authentication
+- [ ] 5. Create Google Calendar integration infrastructure
+  - [ ] 5.1 Set up Google Calendar API authentication
     - Create src/lib/google-calendar.ts utility module
     - Implement OAuth 2.0 authentication flow
     - Store credentials securely in environment variables
     - Handle authentication errors gracefully
     - _Requirements: 11.1, 11.8_
   
-  - [~] 5.2 Implement available slots fetching
+  - [ ] 5.2 Implement available slots fetching
     - Create function to fetch CEO's calendar availability
     - Filter out busy time slots
     - Return available slots for next 14 days
@@ -121,15 +121,15 @@ This implementation plan breaks down the UX enhancement and consultation booking
     - Handle API failures with appropriate error messages
     - _Requirements: 1.9, 11.10, 19.1, 19.8_
   
-  - [~] 5.3 Implement calendar event creation
+  - [ ] 5.3 Implement calendar event creation
     - Create function to create calendar events
     - Set event duration based on collection type (Bridal: 60min, Bespoke: 45min, RTW: 30min)
     - Include customer details in event description
     - Handle event creation failures with logging
     - _Requirements: 1.4, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.9_
 
-- [~] 6. Build consultation booking API endpoints
-  - [~] 6.1 Create available slots API route
+- [ ] 6. Build consultation booking API endpoints
+  - [ ] 6.1 Create available slots API route
     - Create src/app/api/calendar/available-slots/route.ts
     - Implement GET handler to fetch available time slots
     - Return slots grouped by date for next 14 days

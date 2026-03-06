@@ -2,24 +2,23 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { ThemeToggle } from "./ThemeToggle";
+import Logo from "./Logo";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
 
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link href="/" className="logo" aria-label="Vickie's Atelier Home">
-          <Image
-            src="/images/logo/va-logo.png"
-            alt="Vickie's Atelier"
-            width={120}
-            height={48}
-            priority
-            style={{ objectFit: "contain" }}
-          />
-        </Link>
+        <Logo 
+          theme={resolvedTheme}
+          size="large"
+          priority
+          clickable
+        />
 
         <nav className={`nav${open ? " open" : ""}`} aria-label="Primary">
           <Link href="/#collections" onClick={() => setOpen(false)}>
@@ -50,14 +49,17 @@ export default function Header() {
           </Link>
         </nav>
 
-        <button
-          className="nav-toggle"
-          aria-label={open ? "Close Menu" : "Open Menu"}
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? "✕" : "☰"}
-        </button>
+        <div className="header-actions">
+          <ThemeToggle />
+          <button
+            className="nav-toggle"
+            aria-label={open ? "Close Menu" : "Open Menu"}
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
     </header>
   );

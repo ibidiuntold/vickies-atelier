@@ -3,6 +3,8 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ContactWidgetLoader } from "@/components/ContactWidgetLoader";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -22,6 +24,15 @@ export const metadata: Metadata = {
   title: "Vickie's Atelier — bespoke. bridal. ready-to-wear.",
   description:
     "Vickie's Atelier — a contemporary fashion house for bespoke, bridal and ready-to-wear elegance.",
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/images/logo/logo-white.png', sizes: '180x180', type: 'image/png' }
+    ]
+  }
 };
 
 export default function RootLayout({
@@ -31,10 +42,42 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme-preference') || 'system';
+                  var resolved = theme;
+                  
+                  if (theme === 'system') {
+                    resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  
+                  if (resolved === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {
+                  // If localStorage is unavailable, use system preference
+                  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                  }
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <ContactWidgetLoader />
+        </ThemeProvider>
       </body>
     </html>
   );

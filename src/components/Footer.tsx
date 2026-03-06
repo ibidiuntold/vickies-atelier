@@ -1,22 +1,24 @@
+'use client';
+
 import Link from "next/link";
-import Image from "next/image";
 import ContactForm from "./ContactForm";
+import Logo from "./Logo";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Footer() {
+  const { resolvedTheme } = useTheme();
+
   return (
     <footer id="contact" className="footer">
       <div className="container footer-grid">
         <div>
-          <div className="footer-brand">
-            <Link href="/" aria-label="Vickie's Atelier Home">
-              <Image
-                src="/images/logo/va-logo.png"
-                alt="Vickie's Atelier"
-                width={100}
-                height={40}
-                style={{ objectFit: "contain" }}
-              />
-            </Link>
+          <div className="footer-brand footer-logo-container">
+            <Logo 
+              theme={resolvedTheme}
+              size="small"
+              clickable={true}
+              priority={false}
+            />
           </div>
           <p className="muted" style={{ marginTop: 12 }}>
             Lagos &bull; By appointment only
