@@ -77,12 +77,12 @@ export default function Home() {
         <div className="container split">
           <div className="split-media">
             <Image
-              src="https://images.unsplash.com/photo-1520975693416-35a1b0231d7e?q=80&w=1920&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1520975693416-35a1b0231d7e?q=70&w=1200&auto=format&fit=crop"
               alt="Tailor crafting a couture garment"
-              width={1920}
-              height={1280}
+              width={1200}
+              height={800}
               loading="lazy"
-              quality={80}
+              quality={70}
               sizes="(max-width: 860px) 100vw, 50vw"
             />
           </div>
@@ -115,57 +115,57 @@ export default function Home() {
 
           <div className="masonry">
             <Image
-              src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=70&w=800&auto=format&fit=crop"
               alt="Elegant evening dress"
-              width={1200}
-              height={1600}
+              width={800}
+              height={1067}
               loading="lazy"
-              quality={75}
+              quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
             />
             <Image
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?q=70&w=800&auto=format&fit=crop"
               alt="Modern bridal silhouette"
-              width={1200}
-              height={1600}
+              width={800}
+              height={1067}
               loading="lazy"
-              quality={75}
+              quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
             />
             <Image
-              src="https://images.unsplash.com/photo-1520975962217-1c2a615d4f2d?q=80&w=1200&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1520975962217-1c2a615d4f2d?q=70&w=800&auto=format&fit=crop"
               alt="Tailored suit details"
-              width={1200}
-              height={1600}
+              width={800}
+              height={1067}
               loading="lazy"
-              quality={75}
+              quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
             />
             <Image
-              src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1200&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=70&w=800&auto=format&fit=crop"
               alt="Chic ready-to-wear outfit"
-              width={1200}
-              height={1600}
+              width={800}
+              height={1067}
               loading="lazy"
-              quality={75}
+              quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
             />
             <Image
-              src="https://images.unsplash.com/photo-1520974735194-76a1b8fd9a5f?q=80&w=1200&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1520974735194-76a1b8fd9a5f?q=70&w=800&auto=format&fit=crop"
               alt="Flowing bridal fabric"
-              width={1200}
-              height={1600}
+              width={800}
+              height={1067}
               loading="lazy"
-              quality={75}
+              quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
             />
             <Image
-              src="https://images.unsplash.com/photo-1503342217505-b0a15cf70489?q=80&w=1200&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1503342217505-b0a15cf70489?q=70&w=800&auto=format&fit=crop"
               alt="Draped couture detail"
-              width={1200}
-              height={1600}
+              width={800}
+              height={1067}
               loading="lazy"
-              quality={75}
+              quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
             />
           </div>

@@ -6,11 +6,11 @@ export default function Hero() {
     <section className="hero" role="banner" aria-label="Showcase">
       <div className="hero-media" aria-hidden="true">
         <Image
-          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2400&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=60&w=1200&auto=format&fit=crop"
           alt=""
           fill
           priority
-          quality={85}
+          quality={60}
           sizes="100vw"
           style={{ objectFit: 'cover' }}
         />
