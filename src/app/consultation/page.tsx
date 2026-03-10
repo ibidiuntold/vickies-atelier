@@ -216,6 +216,14 @@ function ConsultationPageContent() {
     setErrorMessage('');
   };
 
+  // Check if all required fields are filled
+  const isFormValid = 
+    formData.name.trim() !== '' &&
+    formData.email.trim() !== '' &&
+    formData.phone.trim() !== '' &&
+    formData.collectionType !== '' &&
+    selectedSlot !== null;
+
   return (
     <div className="consultation-page">
       <div className="container">
@@ -418,7 +426,8 @@ function ConsultationPageContent() {
               <button
                 type="submit"
                 className="btn"
-                disabled={status === 'loading'}
+                disabled={status === 'loading' || !isFormValid}
+                title={!isFormValid ? "Please fill in all required fields and select a time slot" : ""}
               >
                 {status === 'loading' ? 'Booking...' : 'Confirm Booking'}
               </button>

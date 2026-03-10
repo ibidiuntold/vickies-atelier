@@ -97,11 +97,16 @@ export default function ContactForm() {
     }
   };
 
+  // Check if all required fields are filled
+  const isFormValid = form.name.trim() !== "" && 
+                      form.email.trim() !== "" && 
+                      form.message.trim() !== "";
+
   return (
     <form className="contact" aria-label="Contact form" onSubmit={handleSubmit}>
       <h3>Enquire</h3>
       <label htmlFor="contact-name">
-        Name
+        Name <span className="required-indicator">*</span>
         <input
           id="contact-name"
           type="text"
@@ -110,6 +115,7 @@ export default function ContactForm() {
           required
           value={form.name}
           onChange={handleChange}
+          className={errors.name ? 'error' : ''}
           aria-required="true"
           aria-invalid={!!errors.name}
           aria-describedby={errors.name ? 'contact-name-error' : undefined}
@@ -121,7 +127,7 @@ export default function ContactForm() {
         )}
       </label>
       <label htmlFor="contact-email">
-        Email
+        Email <span className="required-indicator">*</span>
         <input
           id="contact-email"
           type="email"
@@ -130,6 +136,7 @@ export default function ContactForm() {
           required
           value={form.email}
           onChange={handleChange}
+          className={errors.email ? 'error' : ''}
           aria-required="true"
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? 'contact-email-error' : undefined}
@@ -141,7 +148,7 @@ export default function ContactForm() {
         )}
       </label>
       <label htmlFor="contact-message">
-        Message
+        Message <span className="required-indicator">*</span>
         <textarea
           id="contact-message"
           name="message"
@@ -150,6 +157,7 @@ export default function ContactForm() {
           required
           value={form.message}
           onChange={handleChange}
+          className={errors.message ? 'error' : ''}
           aria-required="true"
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? 'contact-message-error' : undefined}
@@ -163,7 +171,8 @@ export default function ContactForm() {
       <button 
         type="submit" 
         className="btn" 
-        disabled={status === "loading" || Object.keys(errors).length > 0}
+        disabled={status === "loading" || !isFormValid}
+        title={!isFormValid ? "Please fill in all required fields" : ""}
       >
         {status === "loading" ? "Sending…" : "Send Enquiry"}
       </button>

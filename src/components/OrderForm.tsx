@@ -131,6 +131,9 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
     ({ key }) => form[key] && form[key].trim() !== ""
   );
 
+  // Check if contact fields are filled
+  const allContactFieldsFilled = form.name.trim() !== "" && form.email.trim() !== "";
+
   const handleSubmit = async () => {
     // Validate contact fields before submission
     if (!validateContact()) {
@@ -330,7 +333,9 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
               this email.
             </p>
             <div className="form-field" style={{ marginBottom: 14 }}>
-              <label htmlFor="name">Full Name</label>
+              <label htmlFor="name">
+                Full Name <span className="required-indicator">*</span>
+              </label>
               <input
                 id="name"
                 type="text"
@@ -349,7 +354,9 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
               )}
             </div>
             <div className="form-field">
-              <label htmlFor="email">Email Address</label>
+              <label htmlFor="email">
+                Email Address <span className="required-indicator">*</span>
+              </label>
               <input
                 id="email"
                 type="email"
@@ -384,8 +391,9 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
                 className="btn"
                 onClick={handleSubmit}
                 disabled={
-                  status === "loading" || !form.name || !form.email || Object.keys(validationErrors).length > 0
+                  status === "loading" || !allContactFieldsFilled
                 }
+                title={!allContactFieldsFilled ? "Please fill in all required fields" : ""}
               >
                 {status === "loading" ? "Submitting…" : "Place Order"}
               </button>

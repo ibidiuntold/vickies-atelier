@@ -21,17 +21,17 @@ export default function Footer() {
             />
           </div>
           <p className="muted" style={{ marginTop: 12 }}>
-            Lagos &bull; By appointment only
+            Benin &bull; By appointment only
           </p>
           <p>
-            <a href="mailto:hello@vickiesatelier.com">
-              hello@vickiesatelier.com
+            <a href="mailto:vickiesatelier@gmail.com">
+              vickiesatelier@gmail.com
             </a>
             <br />
-            <a href="tel:+2348000000000">+234 800 000 0000</a>
+            <a href="tel:+2348160742412">+234 816 074 2412</a>
           </p>
           <div className="socials" aria-label="Social Links">
-            <a href="#" aria-label="Instagram" title="Instagram">
+            <a href="https://www.instagram.com/vickies.atelier_the_brand?igsh=cnltaGlhcnI1Y3Rj" aria-label="Instagram" title="Instagram">
               <svg
                 width="22"
                 height="22"

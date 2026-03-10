@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { getOptimizedImageProps, getOptimizedUnsplashUrl } from "@/lib/image-utils";
 
 export const metadata: Metadata = {
   title: "Services — Vickie's Atelier",
@@ -105,13 +106,19 @@ export default function ServicesPage() {
           </div>
           <div className="split-media">
             <Image
-              src="https://images.unsplash.com/photo-1520975693416-35a1b0231d7e?q=80&w=1200&auto=format&fit=crop"
+              src={getOptimizedUnsplashUrl("photo-1520975693416-35a1b0231d7e", 500, 400)}
               alt="Atelier craftsmanship"
-              width={1200}
-              height={800}
+              width={500}
+              height={400}
               loading="lazy"
-              sizes="(max-width: 860px) 100vw, 50vw"
-              style={{ borderRadius: "var(--radius)" }}
+              sizes="(max-width: 860px) 100vw, 500px"
+              {...getOptimizedImageProps(500, 400)}
+              style={{
+                ...getOptimizedImageProps(500, 400).style,
+                maxWidth: '500px',
+                maxHeight: '400px',
+                borderRadius: "var(--radius)"
+              }}
             />
           </div>
         </div>

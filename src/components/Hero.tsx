@@ -1,18 +1,19 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getOptimizedImageProps, getOptimizedUnsplashUrl } from "@/lib/image-utils";
 
 export default function Hero() {
   return (
     <section className="hero" role="banner" aria-label="Showcase">
       <div className="hero-media" aria-hidden="true">
         <Image
-          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=60&w=1200&auto=format&fit=crop"
+          src={getOptimizedUnsplashUrl("photo-1490481651871-ab68de25d43d", 1200)}
           alt=""
           fill
           priority
           quality={60}
           sizes="100vw"
-          style={{ objectFit: 'cover' }}
+          {...getOptimizedImageProps(1200, 800)}
         />
       </div>
       <div className="container hero-content">

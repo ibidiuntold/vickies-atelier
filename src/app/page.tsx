@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Hero from "@/components/Hero";
 import CollectionSection from "@/components/CollectionSection";
+import { getOptimizedImageProps, getOptimizedUnsplashUrl } from "@/lib/image-utils";
 import type { ImageItem } from "@/types";
 
 const bespokeImages: ImageItem[] = [
@@ -74,33 +75,41 @@ export default function Home() {
 
       {/* Our Story */}
       <section id="story" className="section section--alt">
-        <div className="container split">
-          <div className="split-media">
-            <Image
-              src="https://images.unsplash.com/photo-1520975693416-35a1b0231d7e?q=70&w=1200&auto=format&fit=crop"
-              alt="Tailor crafting a couture garment"
-              width={1200}
-              height={800}
-              loading="lazy"
-              quality={70}
-              sizes="(max-width: 860px) 100vw, 50vw"
-            />
-          </div>
-          <div className="split-body">
-            <h2>Our Story</h2>
-            <p>
-              At Vickie&apos;s Atelier, we believe fashion is a language of
-              confidence. Every stitch tells your story—precision cut,
-              hand-finished, and designed to flatter.
-            </p>
-            <ul className="ticks">
-              <li>Custom pattern-making &amp; fittings</li>
-              <li>Ethically sourced premium textiles</li>
-              <li>Artisanal craftsmanship &amp; couture finishes</li>
-            </ul>
-            <Link href="/services" className="btn">
-              Our Process
-            </Link>
+        <div className="container">
+          <div className="split">
+            <div className="split-media">
+              <Image
+                src={getOptimizedUnsplashUrl("photo-1520975693416-35a1b0231d7e", 500, 400)}
+                alt="Tailor crafting a couture garment"
+                width={500}
+                height={400}
+                loading="lazy"
+                quality={70}
+                sizes="(max-width: 860px) 100vw, 500px"
+                {...getOptimizedImageProps(500, 400)}
+                style={{
+                  ...getOptimizedImageProps(500, 400).style,
+                  maxWidth: '500px',
+                  maxHeight: '400px'
+                }}
+              />
+            </div>
+            <div className="split-body">
+              <h2>Our Story</h2>
+              <p>
+                At Vickie&apos;s Atelier, we believe fashion is a language of
+                confidence. Every stitch tells your story—precision cut,
+                hand-finished, and designed to flatter.
+              </p>
+              <ul className="ticks">
+                <li>Custom pattern-making &amp; fittings</li>
+                <li>Ethically sourced premium textiles</li>
+                <li>Artisanal craftsmanship &amp; couture finishes</li>
+              </ul>
+              <Link href="/services" className="btn">
+                Our Process
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -115,58 +124,64 @@ export default function Home() {
 
           <div className="masonry">
             <Image
-              src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=70&w=800&auto=format&fit=crop"
+              src={getOptimizedUnsplashUrl("photo-1496747611176-843222e1e57c", 800)}
               alt="Elegant evening dress"
               width={800}
               height={1067}
               loading="lazy"
               quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
+              {...getOptimizedImageProps(800, 1067)}
             />
             <Image
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?q=70&w=800&auto=format&fit=crop"
+              src={getOptimizedUnsplashUrl("photo-1519741497674-611481863552", 800)}
               alt="Modern bridal silhouette"
               width={800}
               height={1067}
               loading="lazy"
               quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
+              {...getOptimizedImageProps(800, 1067)}
             />
             <Image
-              src="https://images.unsplash.com/photo-1520975962217-1c2a615d4f2d?q=70&w=800&auto=format&fit=crop"
+              src={getOptimizedUnsplashUrl("photo-1520975962217-1c2a615d4f2d", 800)}
               alt="Tailored suit details"
               width={800}
               height={1067}
               loading="lazy"
               quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
+              {...getOptimizedImageProps(800, 1067)}
             />
             <Image
-              src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=70&w=800&auto=format&fit=crop"
+              src={getOptimizedUnsplashUrl("photo-1512436991641-6745cdb1723f", 800)}
               alt="Chic ready-to-wear outfit"
               width={800}
               height={1067}
               loading="lazy"
               quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
+              {...getOptimizedImageProps(800, 1067)}
             />
             <Image
-              src="https://images.unsplash.com/photo-1520974735194-76a1b8fd9a5f?q=70&w=800&auto=format&fit=crop"
+              src={getOptimizedUnsplashUrl("photo-1520974735194-76a1b8fd9a5f", 800)}
               alt="Flowing bridal fabric"
               width={800}
               height={1067}
               loading="lazy"
               quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
+              {...getOptimizedImageProps(800, 1067)}
             />
             <Image
-              src="https://images.unsplash.com/photo-1503342217505-b0a15cf70489?q=70&w=800&auto=format&fit=crop"
+              src={getOptimizedUnsplashUrl("photo-1503342217505-b0a15cf70489", 800)}
               alt="Draped couture detail"
               width={800}
               height={1067}
               loading="lazy"
               quality={70}
               sizes="(max-width: 860px) 100vw, 33vw"
+              {...getOptimizedImageProps(800, 1067)}
             />
           </div>
         </div>
