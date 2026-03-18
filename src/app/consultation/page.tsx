@@ -221,7 +221,7 @@ function ConsultationPageContent() {
     formData.name.trim() !== '' &&
     formData.email.trim() !== '' &&
     formData.phone.trim() !== '' &&
-    formData.collectionType !== '' &&
+    (formData.collectionType === 'bespoke' || formData.collectionType === 'bridal' || formData.collectionType === 'rtw') &&
     selectedSlot !== null;
 
   return (
