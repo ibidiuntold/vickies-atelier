@@ -3,68 +3,29 @@
 import { useTheme } from '@/hooks/useTheme';
 
 export function ThemeToggle() {
-  const { theme, resolvedTheme, setTheme, mounted } = useTheme();
+  const { resolvedTheme, setTheme, mounted } = useTheme();
 
   const handleToggle = () => {
-    // Cycle through: light -> dark -> system -> light
-    if (theme === 'light') {
-      setTheme('dark');
-    } else if (theme === 'dark') {
-      setTheme('system');
-    } else {
-      setTheme('light');
-    }
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    // Support Enter and Space keys for accessibility
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleToggle();
-    }
-  };
-
-  // Use light as fallback during SSR to prevent hydration mismatch
-  const currentTheme = mounted ? theme : 'light';
-  const currentResolvedTheme = mounted ? resolvedTheme : 'light';
-
-  // Get appropriate label based on current theme
-  const getAriaLabel = () => {
-    if (currentTheme === 'light') return 'Switch to dark mode';
-    if (currentTheme === 'dark') return 'Switch to system preference';
-    return 'Switch to light mode';
-  };
-
-  // Get appropriate icon based on current theme
-  const getActiveIcon = () => {
-    if (currentTheme === 'system') return 'system';
-    return currentResolvedTheme;
-  };
-
-  const activeIcon = getActiveIcon();
+  const currentTheme = mounted ? resolvedTheme : 'light';
 
   return (
     <button
       onClick={handleToggle}
-      onKeyDown={handleKeyDown}
-      className="theme-toggle"
-      aria-label={getAriaLabel()}
-      aria-pressed={currentResolvedTheme === 'dark'}
       type="button"
-      title={`Current: ${currentTheme === 'system' ? `System (${currentResolvedTheme})` : currentTheme}`}
+      className="relative w-10 h-10 flex items-center justify-center rounded-full text-[var(--text)] hover:bg-[var(--bg-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-colors duration-150"
+      aria-label={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
+      aria-pressed={currentTheme === 'dark'}
+      title={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
     >
-      {/* Sun icon for light mode */}
+      {/* Sun — visible in dark mode */}
       <svg
-        className={`theme-toggle__icon theme-toggle__icon--sun ${activeIcon === 'light' ? 'active' : ''}`}
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
+        className={`absolute transition-opacity duration-200 ${currentTheme === 'dark' ? 'opacity-100' : 'opacity-0'}`}
+        width="20" height="20" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" strokeWidth="2"
+        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
       >
         <circle cx="12" cy="12" r="5" />
         <line x1="12" y1="1" x2="12" y2="3" />
@@ -77,38 +38,14 @@ export function ThemeToggle() {
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
       </svg>
 
-      {/* Moon icon for dark mode */}
+      {/* Moon — visible in light mode */}
       <svg
-        className={`theme-toggle__icon theme-toggle__icon--moon ${activeIcon === 'dark' ? 'active' : ''}`}
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
+        className={`absolute transition-opacity duration-200 ${currentTheme === 'light' ? 'opacity-100' : 'opacity-0'}`}
+        width="20" height="20" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" strokeWidth="2"
+        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
       >
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-      </svg>
-
-      {/* System/Auto icon for system preference mode */}
-      <svg
-        className={`theme-toggle__icon theme-toggle__icon--system ${activeIcon === 'system' ? 'active' : ''}`}
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
       </svg>
     </button>
   );

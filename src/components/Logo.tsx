@@ -1,64 +1,31 @@
-/**
- * Logo Component
- * 
- * Theme-aware logo component with WebP support and fallbacks.
- * Automatically switches between light and dark variants based on theme.
- * 
- * Requirements: 5.5, 5.6, 5.7, 5.8, 5.9, 16.2
- */
-
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from '@/hooks/useTheme';
 import { getLogoAssets } from '@/lib/logo-config';
 
 interface LogoProps {
-  /**
-   * Theme mode - determines which logo variant to display
-   */
   theme?: 'light' | 'dark';
-  
-  /**
-   * Size variant for different contexts
-   */
   size?: 'small' | 'medium' | 'large';
-  
-  /**
-   * Whether the logo should be clickable (links to homepage)
-   * @default true
-   */
   clickable?: boolean;
-  
-  /**
-   * Additional CSS classes
-   */
   className?: string;
-  
-  /**
-   * Priority loading for above-the-fold logos
-   * @default false
-   */
   priority?: boolean;
 }
 
 const SIZE_CONFIG = {
-  small: { maxWidth: 120, maxHeight: 60 },    // Footer size
-  medium: { maxWidth: 160, maxHeight: 80 },   // General use
-  large: { maxWidth: 200, maxHeight: 100 }    // Header size
+  small:  { maxWidth: 120, maxHeight: 60 },
+  medium: { maxWidth: 160, maxHeight: 80 },
+  large:  { maxWidth: 200, maxHeight: 100 },
 };
 
-export default function Logo({
-  theme = 'light',
-  size = 'medium',
-  clickable = true,
-  className = '',
-  priority = false
-}: LogoProps) {
-  const logoAssets = getLogoAssets(theme);
-  const sizeConstraints = SIZE_CONFIG[size];
+export default function Logo({ theme: themeProp, size = 'medium', clickable = true, className = '', priority = false }: LogoProps) {
+  const { resolvedTheme, mounted } = useTheme();
+  const activeTheme: 'light' | 'dark' = themeProp ?? (mounted ? resolvedTheme : 'light');
+  const logoAssets = getLogoAssets(activeTheme);
+  const { maxWidth, maxHeight } = SIZE_CONFIG[size];
 
-  const logoImage = (
+  const img = (
     <picture>
       <source srcSet={logoAssets.webp} type="image/webp" />
       <Image
@@ -67,47 +34,21 @@ export default function Logo({
         width={logoAssets.width}
         height={logoAssets.height}
         priority={priority}
-        className={`logo ${className}`}
-        style={{
-          width: 'auto',
-          height: 'auto',
-          maxWidth: `${sizeConstraints.maxWidth}px`,
-          maxHeight: `${sizeConstraints.maxHeight}px`,
-          objectFit: 'contain'
-        }}
+        className={`w-auto h-auto object-contain transition-opacity duration-300 ${className}`}
+        style={{ maxWidth, maxHeight }}
       />
     </picture>
   );
 
+  const wrapperClass = "inline-block leading-none hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] focus:rounded transition-opacity duration-200";
+
   if (clickable) {
     return (
-      <Link 
-        href="/" 
-        className="logo-link"
-        aria-label="Return to homepage"
-        style={{
-          display: 'inline-block',
-          lineHeight: 0,
-          padding: size === 'large' ? '8px 12px' : '4px 8px',
-          margin: size === 'large' ? '0 16px 0 0' : '0 8px 0 0'
-        }}
-      >
-        {logoImage}
+      <Link href="/" aria-label="Return to homepage" className={wrapperClass}>
+        {img}
       </Link>
     );
   }
 
-  return (
-    <div 
-      className="logo-container"
-      style={{
-        display: 'inline-block',
-        lineHeight: 0,
-        padding: size === 'large' ? '8px 12px' : '4px 8px',
-        margin: size === 'large' ? '0 16px 0 0' : '0 8px 0 0'
-      }}
-    >
-      {logoImage}
-    </div>
-  );
+  return <div className="inline-block leading-none">{img}</div>;
 }

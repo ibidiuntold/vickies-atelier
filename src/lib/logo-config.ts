@@ -2,9 +2,9 @@
  * Logo Configuration
  * 
  * Provides optimized logo assets for light and dark themes
- * with WebP format and fallbacks.
+ * with WebP format and PNG fallbacks.
  * 
- * Requirements: 5.5, 5.6, 5.7, 5.8, 5.9, 16.2
+ * Requirements: 10.4 (WebP with PNG fallbacks), 10.5 (consistent alt text)
  */
 
 export interface LogoAsset {
@@ -29,14 +29,14 @@ export interface LogoConfig {
 export const LOGO_CONFIG: LogoConfig = {
   light: {
     webp: '/images/logo/logo-dark.webp',
-    fallback: '/images/logo/logo-dark.png',
+    fallback: '/images/logo/logo-dark-transparent.png',
     alt: "Vickie's Atelier - Luxury Fashion Design",
     width: 691,
     height: 361
   },
   dark: {
     webp: '/images/logo/logo-white.webp',
-    fallback: '/images/logo/logo-white.png',
+    fallback: '/images/logo/logo-white-transparent.png',
     alt: "Vickie's Atelier - Luxury Fashion Design",
     width: 623,
     height: 401

@@ -2,6 +2,54 @@
 
 import { createContext, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 
+/**
+ * ─── How to Add a New Theme Variant ─────────────────────────────────────────
+ *
+ * The theme system is designed to be extended with additional variants (e.g.
+ * 'high-contrast', 'sepia', 'dim') by following these steps:
+ *
+ * 1. EXTEND THE TYPE
+ *    Add the new variant name to the `Theme` union type below:
+ *      type Theme = 'light' | 'dark' | 'system' | 'high-contrast';
+ *
+ * 2. REGISTER THE VARIANT
+ *    Add the new name to the `VALID_THEMES` array so validation and
+ *    localStorage round-trips accept it:
+ *      const VALID_THEMES: Theme[] = ['light', 'dark', 'system', 'high-contrast'];
+ *
+ * 3. RESOLVE TO A BASE THEME
+ *    Update `resolveTheme()` to map the new variant to either 'light' or
+ *    'dark' (the two values that drive DOM class application):
+ *      if (currentTheme === 'high-contrast') return 'dark'; // or 'light'
+ *
+ * 4. APPLY A CSS CLASS
+ *    Update `applyTheme()` to add/remove the corresponding CSS class on
+ *    `document.documentElement` alongside the existing 'dark' class:
+ *      root.classList.toggle('high-contrast', resolved === 'high-contrast');
+ *
+ * 5. ADD CSS CUSTOM PROPERTIES
+ *    In `src/app/globals.css`, add a new selector block that overrides only
+ *    the variables that differ from the base theme:
+ *      :root.high-contrast {
+ *        --bg: #000000;
+ *        --text: #ffffff;
+ *        --border: #ffffff;
+ *        ...
+ *      }
+ *
+ * 6. UPDATE LOGO CONFIG (if needed)
+ *    If the new theme requires a distinct logo variant, add an entry to
+ *    `src/lib/logo-config.ts` and update `getLogoAssets()` to handle it.
+ *
+ * 7. UPDATE THE TOGGLE UI
+ *    Add the new option to `src/components/ThemeToggle.tsx` so users can
+ *    select it, and update any ARIA labels accordingly.
+ *
+ * The modular CSS custom-property approach means component styles require
+ * no changes — they automatically pick up the new variable values.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
 type Theme = 'light' | 'dark' | 'system';
 type ResolvedTheme = 'light' | 'dark';
 
@@ -93,23 +141,20 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     return currentTheme;
   }, [getSystemTheme]);
 
-  // Apply theme to document root with performance optimization
+  // Apply theme to document root synchronously
   const applyTheme = useCallback((resolved: ResolvedTheme) => {
-    if (typeof window === 'undefined' || isChangingTheme.current) return;
+    if (typeof window === 'undefined') return;
     
     try {
       const root = document.documentElement;
       
-      // Use requestAnimationFrame for smooth DOM updates
-      requestAnimationFrame(() => {
-        if (resolved === 'dark') {
-          root.classList.add('dark');
-          root.setAttribute('data-theme', 'dark');
-        } else {
-          root.classList.remove('dark');
-          root.setAttribute('data-theme', 'light');
-        }
-      });
+      if (resolved === 'dark') {
+        root.classList.add('dark');
+        root.setAttribute('data-theme', 'dark');
+      } else {
+        root.classList.remove('dark');
+        root.setAttribute('data-theme', 'light');
+      }
     } catch (error) {
       console.warn('Failed to apply theme to DOM:', error);
     }
