@@ -13,7 +13,7 @@ export default function Carousel({ images }: CarouselProps) {
 
   const scroll = (dir: "left" | "right") => {
     if (!trackRef.current) return;
-    const slideWidth = trackRef.current.querySelector("img")?.clientWidth ?? 380;
+    const slideWidth = (trackRef.current.querySelector("div") as HTMLElement)?.offsetWidth ?? 300;
     trackRef.current.scrollBy({
       left: dir === "right" ? slideWidth + 16 : -(slideWidth + 16),
       behavior: "smooth",
@@ -38,17 +38,17 @@ export default function Carousel({ images }: CarouselProps) {
         style={{ scrollbarWidth: "none" }}
       >
         {images.map((img) => (
-          <Image
-            key={img.src}
-            src={img.src}
-            alt={img.alt}
-            width={380}
-            height={507}
-            className="rounded-[18px] object-cover snap-start shrink-0"
-            loading="lazy"
-            sizes="(max-width: 860px) 90vw, 380px"
-            quality={75}
-          />
+          <div key={img.src} className="relative shrink-0 snap-start rounded-[18px] overflow-hidden" style={{ width: 300, height: 400 }}>
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              className="object-cover object-top"
+              loading="lazy"
+              sizes="300px"
+              quality={75}
+            />
+          </div>
         ))}
       </div>
 

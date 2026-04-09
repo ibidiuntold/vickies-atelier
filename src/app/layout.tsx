@@ -3,7 +3,6 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { ContactWidgetLoader } from "@/components/ContactWidgetLoader";
 
 const playfair = Playfair_Display({
@@ -35,40 +34,14 @@ export const metadata: Metadata = {
   }
 };
 
-// Inline script to apply theme class before first paint (FOUC prevention)
-// Must be a string to use with dangerouslySetInnerHTML
-const themeInitScript = `
-(function() {
-  try {
-    var theme = localStorage.getItem('theme-preference');
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (theme === 'system' || !theme) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
-      }
-    }
-  } catch (e) {}
-})();
-`;
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body>
-        <ThemeProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <ContactWidgetLoader />
-        </ThemeProvider>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+        <ContactWidgetLoader />
       </body>
     </html>
   );

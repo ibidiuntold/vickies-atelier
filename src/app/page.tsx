@@ -52,15 +52,17 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2 shrink-0">
-              <Image
-                src={getOptimizedUnsplashUrl("photo-1558618666-fcd25c85cd64", 500, 400)}
-                alt="Tailor crafting a couture garment"
-                width={500} height={400}
-                loading="lazy" quality={70}
-                sizes="(max-width: 860px) 100vw, 500px"
-                className="rounded-[18px] object-cover w-full"
-                {...getOptimizedImageProps(500, 400)}
-              />
+              <div className="relative w-full rounded-[18px] overflow-hidden" style={{ aspectRatio: '5/4', maxWidth: 500 }}>
+                <Image
+                  src={getOptimizedUnsplashUrl("photo-1558618666-fcd25c85cd64", 500, 400)}
+                  alt="Tailor crafting a couture garment"
+                  fill
+                  loading="lazy"
+                  quality={70}
+                  sizes="(max-width: 860px) 100vw, 500px"
+                  className="object-cover object-center"
+                />
+              </div>
             </div>
             <div className="md:w-1/2">
               <h2 className="font-[family-name:var(--font-playfair)] text-[clamp(28px,3vw,40px)] font-semibold text-[var(--text)] mb-4">Our Story</h2>
@@ -89,7 +91,7 @@ export default function Home() {
             <h2 className="font-[family-name:var(--font-playfair)] text-[clamp(28px,3vw,40px)] font-semibold text-[var(--text)] mb-3">Lookbook</h2>
             <p className="text-[var(--muted)]">Selected looks across bespoke, bridal, and ready-to-wear.</p>
           </header>
-          <div className="columns-2 md:columns-3 gap-4 space-y-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
               { id: "photo-1496747611176-843222e1e57c", alt: "Elegant evening dress" },
               { id: "photo-1519741497674-611481863552", alt: "Modern bridal silhouette" },
@@ -98,16 +100,17 @@ export default function Home() {
               { id: "photo-1515886657613-9f3515b0c78f", alt: "Flowing bridal fabric" },
               { id: "photo-1503342217505-b0a15cf70489", alt: "Draped couture detail" },
             ].map((img) => (
-              <Image
-                key={img.id}
-                src={getOptimizedUnsplashUrl(img.id, 800)}
-                alt={img.alt}
-                width={800} height={1067}
-                loading="lazy" quality={70}
-                sizes="(max-width: 860px) 50vw, 33vw"
-                className="rounded-[12px] w-full break-inside-avoid"
-                {...getOptimizedImageProps(800, 1067)}
-              />
+              <div key={img.id} className="relative rounded-[12px] overflow-hidden aspect-[3/4]">
+                <Image
+                  src={getOptimizedUnsplashUrl(img.id, 600, 800)}
+                  alt={img.alt}
+                  fill
+                  loading="lazy"
+                  quality={70}
+                  sizes="(max-width: 860px) 50vw, 33vw"
+                  className="object-cover object-center"
+                />
+              </div>
             ))}
           </div>
         </div>

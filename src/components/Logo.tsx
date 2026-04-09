@@ -1,12 +1,8 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from '@/hooks/useTheme';
 import { getLogoAssets } from '@/lib/logo-config';
 
 interface LogoProps {
-  theme?: 'light' | 'dark';
   size?: 'small' | 'medium' | 'large';
   clickable?: boolean;
   className?: string;
@@ -19,10 +15,8 @@ const SIZE_CONFIG = {
   large:  { maxWidth: 200, maxHeight: 100 },
 };
 
-export default function Logo({ theme: themeProp, size = 'medium', clickable = true, className = '', priority = false }: LogoProps) {
-  const { resolvedTheme, mounted } = useTheme();
-  const activeTheme: 'light' | 'dark' = themeProp ?? (mounted ? resolvedTheme : 'light');
-  const logoAssets = getLogoAssets(activeTheme);
+export default function Logo({ size = 'medium', clickable = true, className = '', priority = false }: LogoProps) {
+  const logoAssets = getLogoAssets('light');
   const { maxWidth, maxHeight } = SIZE_CONFIG[size];
 
   const img = (
@@ -34,17 +28,16 @@ export default function Logo({ theme: themeProp, size = 'medium', clickable = tr
         width={logoAssets.width}
         height={logoAssets.height}
         priority={priority}
-        className={`w-auto h-auto object-contain transition-opacity duration-300 ${className}`}
+        className={`w-auto h-auto object-contain ${className}`}
         style={{ maxWidth, maxHeight }}
       />
     </picture>
   );
 
-  const wrapperClass = "inline-block leading-none hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] focus:rounded transition-opacity duration-200";
-
   if (clickable) {
     return (
-      <Link href="/" aria-label="Return to homepage" className={wrapperClass}>
+      <Link href="/" aria-label="Return to homepage"
+        className="inline-block leading-none hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] focus:rounded transition-opacity duration-200">
         {img}
       </Link>
     );

@@ -63,15 +63,16 @@ export default function ServicesPage() {
               <Link href="/order" className={btnPrimary}>Place an Order</Link>
             </div>
             <div className="md:w-1/2 shrink-0">
-              <Image
-                src={getOptimizedUnsplashUrl("photo-1558618666-fcd25c85cd64", 500, 400)}
-                alt="Atelier craftsmanship"
-                width={500} height={400}
-                loading="lazy"
-                sizes="(max-width: 860px) 100vw, 500px"
-                className="rounded-[18px] object-cover w-full"
-                {...getOptimizedImageProps(500, 400)}
-              />
+              <div className="relative w-full rounded-[18px] overflow-hidden" style={{ aspectRatio: '5/4', maxWidth: 500 }}>
+                <Image
+                  src={getOptimizedUnsplashUrl("photo-1558618666-fcd25c85cd64", 500, 400)}
+                  alt="Atelier craftsmanship"
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 860px) 100vw, 500px"
+                  className="object-cover object-center"
+                />
+              </div>
             </div>
           </div>
         </div>
