@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Button from './Button';
 
 interface ContactWidgetProps {
   position?: 'bottom-right' | 'bottom-left';
@@ -60,16 +61,18 @@ export default function ContactWidget({
       {/* Collapsed */}
       {!isExpanded && (
         <div className="relative">
-          <button
+          <Button
+            variant="primary"
+            size="md"
             onClick={() => { setIsExpanded(true); setShowTooltip(false); }}
             aria-label="Open contact options"
             aria-expanded={false}
-            className="w-14 h-14 rounded-full bg-[var(--brand)] text-[#111] flex items-center justify-center shadow-lg hover:bg-[var(--brand-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200"
+            className="!w-14 !h-14 !rounded-full !p-0"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
-          </button>
+          </Button>
           {showTooltip && (
             <div className="absolute bottom-full mb-2 right-0 bg-[var(--bg)] border border-[var(--border)] text-[var(--text)] text-sm px-3 py-2 rounded-[10px] shadow-md whitespace-nowrap" role="tooltip" aria-live="polite">
               Want to contact us? Click me!
@@ -84,12 +87,17 @@ export default function ContactWidget({
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border)]">
             <h3 className="font-semibold text-[var(--text)] text-sm">Get in Touch</h3>
-            <button onClick={() => setIsExpanded(false)} aria-label="Close contact options"
-              className="w-8 h-8 flex items-center justify-center rounded-full text-[var(--muted)] hover:bg-[var(--bg-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-colors duration-150">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsExpanded(false)}
+              aria-label="Close contact options"
+              className="!w-8 !h-8 !p-0 !rounded-full !min-h-0"
+            >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
               </svg>
-            </button>
+            </Button>
           </div>
 
           {/* Items */}

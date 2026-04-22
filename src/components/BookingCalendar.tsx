@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Button from './Button';
+import { useToast } from './toast';
 
 export interface TimeSlot {
   start: string;
@@ -33,6 +35,7 @@ const slotBtn = (selected: boolean) =>
   ].join(' ');
 
 export function BookingCalendar({ collectionType, onSlotSelect, selectedSlot }: BookingCalendarProps) {
+  const { toast } = useToast();
   const [slots, setSlots] = useState<Record<string, TimeSlot[]>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +51,9 @@ export function BookingCalendar({ collectionType, onSlotSelect, selectedSlot }: 
       setSlots(data.slots);
       setBusinessHours(data.businessHours);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.');
+      const msg = err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.';
+      setError(msg);
+      toast({ type: 'error', title: 'Could not load slots', message: msg });
     } finally {
       setLoading(false);
     }
@@ -74,12 +79,13 @@ export function BookingCalendar({ collectionType, onSlotSelect, selectedSlot }: 
             <p className="text-xs text-[var(--muted)]">{businessHours.timezone}</p>
           </div>
         )}
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={fetchSlots}
           disabled={loading}
           aria-label="Refresh available slots"
-          className="flex items-center gap-2 text-sm text-[var(--brand)] hover:underline disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] rounded"
+          className="flex items-center gap-2"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
             className={loading ? 'animate-spin' : ''}>
@@ -88,7 +94,7 @@ export function BookingCalendar({ collectionType, onSlotSelect, selectedSlot }: 
             <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
           </svg>
           Refresh
-        </button>
+        </Button>
       </div>
 
       {/* Loading */}
@@ -109,10 +115,7 @@ export function BookingCalendar({ collectionType, onSlotSelect, selectedSlot }: 
           </svg>
           <div>
             <p className="text-sm text-red-700 dark:text-red-300 mb-2">{error}</p>
-            <button type="button" onClick={fetchSlots}
-              className="text-sm px-4 py-1.5 rounded-[10px] border border-red-400 text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-150">
-              Try Again
-            </button>
+            <Button variant="ghost" size="sm" onClick={fetchSlots}>Try Again</Button>
           </div>
         </div>
       )}

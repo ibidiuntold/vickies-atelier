@@ -3,6 +3,8 @@
 import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { BookingCalendar, type TimeSlot, type CollectionType } from '@/components/BookingCalendar';
+import Button from '@/components/Button';
+import { useToast } from '@/components/toast';
 
 interface BookingFormData {
   name: string;
@@ -31,6 +33,7 @@ function ConsultationPageContent() {
   const initialCollection: CollectionType =
     collectionParam === 'bridal' || collectionParam === 'rtw' ? collectionParam : 'bespoke';
 
+  const { toast } = useToast();
   const [formData, setFormData] = useState<BookingFormData>({ name: '', email: '', phone: '', collectionType: initialCollection });
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -90,11 +93,14 @@ function ConsultationPageContent() {
       if (!res.ok || !data.success) throw new Error(data.error || 'Failed to book consultation');
       setStatus('success');
       setSuccessMessage(data.message || 'Consultation booked successfully! Check your email for confirmation.');
+      toast({ type: 'success', title: 'Consultation booked!', message: 'Check your email for confirmation.' });
       setFormData({ name: '', email: '', phone: '', collectionType: 'bespoke' });
       setSelectedSlot(null);
     } catch (err) {
       setStatus('error');
-      setErrorMessage(err instanceof Error ? err.message : 'Failed to book consultation. Please try again.');
+      const msg = err instanceof Error ? err.message : 'Failed to book consultation. Please try again.';
+      setErrorMessage(msg);
+      toast({ type: 'error', title: 'Booking failed', message: msg });
     }
   };
 
@@ -122,9 +128,9 @@ function ConsultationPageContent() {
             <div>
               <h2 className="font-semibold text-green-800 dark:text-green-200 mb-1">Booking Confirmed!</h2>
               <p className="text-green-700 dark:text-green-300 text-sm mb-3">{successMessage}</p>
-              <button type="button" className={btnPrimary} onClick={() => { setStatus('idle'); setSuccessMessage(''); }}>
+              <Button variant="primary" size="md" onClick={() => { setStatus('idle'); setSuccessMessage(''); }}>
                 Book Another Consultation
-              </button>
+              </Button>
             </div>
           </div>
         )}
@@ -191,17 +197,24 @@ function ConsultationPageContent() {
                 </svg>
                 <div>
                   <p className="text-sm text-red-700 dark:text-red-300 mb-2">{errorMessage}</p>
-                  <button type="button" className={btnOutline} onClick={() => { setStatus('idle'); setErrorMessage(''); }}>Try Again</button>
+                  <Button variant="ghost" size="sm" onClick={() => { setStatus('idle'); setErrorMessage(''); }}>
+                    Try Again
+                  </Button>
                 </div>
               </div>
             )}
 
-            {/* Submit */}
             <div>
-              <button type="submit" className={btnPrimary} disabled={status === 'loading' || !isFormValid}
-                title={!isFormValid ? 'Please fill in all required fields and select a time slot' : ''}>
-                {status === 'loading' ? 'Booking...' : 'Confirm Booking'}
-              </button>
+              <Button
+                type="submit"
+                variant="primary"
+                size="md"
+                isLoading={status === 'loading'}
+                disabled={status === 'loading' || !isFormValid}
+                title={!isFormValid ? 'Please fill in all required fields and select a time slot' : ''}
+              >
+                Confirm Booking
+              </Button>
             </div>
           </form>
         )}

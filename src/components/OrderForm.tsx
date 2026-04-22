@@ -5,6 +5,9 @@ import Link from "next/link";
 import type { Collection, OrderPayload } from "@/types";
 import { PhotoUpload } from "./PhotoUpload";
 import { MeasurementDiagrams } from "./MeasurementDiagrams";
+import Button from "./Button";
+import { useToast } from "./toast";
+import { CheckIcon, ArrowLeftIcon, ArrowRightIcon } from "./Icons";
 
 interface OrderFormProps {
   initialCollection?: Collection;
@@ -35,6 +38,7 @@ const btnPrimary = "inline-flex items-center justify-center px-6 py-3 rounded-[1
 const btnGhost   = "inline-flex items-center justify-center px-6 py-3 rounded-[18px] border border-[var(--brand)] text-[var(--brand)] font-medium hover:bg-[var(--brand)] hover:text-[#111] disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200";
 
 export default function OrderForm({ initialCollection }: OrderFormProps) {
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<OrderPayload>({ ...emptyForm, collection: initialCollection ?? "bespoke" });
   const [status, setStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
@@ -82,15 +86,17 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
       const data = await res.json();
       setReadyDate(data.readyDate);
       setStatus("success");
+      toast({ type: "success", title: "Order placed!", message: "Check your email for confirmation." });
     } catch {
       setStatus("error");
+      toast({ type: "error", title: "Order failed", message: "Something went wrong. Please try again." });
     }
   };
 
   if (status === "success") {
     return (
       <div className="bg-[var(--bg-secondary)] rounded-[18px] border border-[var(--border)] p-8 text-center">
-        <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
+        <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600" aria-hidden="true">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
           </svg>
@@ -111,7 +117,7 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
         {[1, 2, 3].map((n, i) => (
           <div key={n} className="flex items-center">
             <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-all duration-200 ${step === n ? "bg-[var(--brand)] border-[var(--brand)] text-[#111]" : step > n ? "bg-[var(--brand)] border-[var(--brand)] text-[#111]" : "bg-[var(--bg)] border-[var(--border)] text-[var(--muted)]"}`}>
-              {step > n ? "✓" : n}
+              {step > n ? <CheckIcon size={16} /> : n}
             </div>
             {i < 2 && <div className={`w-16 h-0.5 ${step > n ? "bg-[var(--brand)]" : "bg-[var(--border)]"}`} />}
           </div>
@@ -140,7 +146,9 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
               ))}
             </div>
             <div className="flex justify-end">
-              <button className={btnPrimary} onClick={() => setStep(2)}>Continue →</button>
+              <Button variant="primary" size="md" onClick={() => setStep(2)}>
+                Continue <ArrowRightIcon size={16} />
+              </Button>
             </div>
           </>
         )}
@@ -177,12 +185,14 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
                 className={inputCls()} />
             </div>
             <div className="flex justify-between mt-6">
-              <button className={btnGhost} onClick={() => setStep(1)}>← Back</button>
-              <button className={btnPrimary} disabled={!allMeasurementsFilled}
+              <Button variant="ghost" size="md" onClick={() => setStep(1)}>
+                <ArrowLeftIcon size={16} /> Back
+              </Button>
+              <Button variant="primary" size="md" disabled={!allMeasurementsFilled}
                 onClick={() => { if (validateMeasurements()) setStep(3); }}
                 title={!allMeasurementsFilled ? "Please fill in all required measurement fields" : ""}>
-                Continue →
-              </button>
+                Continue <ArrowRightIcon size={16} />
+              </Button>
             </div>
           </>
         )}
@@ -212,12 +222,15 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
               <p className="text-red-500 text-sm mb-4" role="alert">Something went wrong. Please try again or contact us directly.</p>
             )}
             <div className="flex justify-between">
-              <button className={btnGhost} onClick={() => setStep(2)} disabled={status === "loading"}>← Back</button>
-              <button className={btnPrimary} onClick={handleSubmit}
+              <Button variant="ghost" size="md" onClick={() => setStep(2)} disabled={status === "loading"}>
+                <ArrowLeftIcon size={16} /> Back
+              </Button>
+              <Button variant="primary" size="md" onClick={handleSubmit}
+                isLoading={status === "loading"}
                 disabled={status === "loading" || !allContactFilled}
                 title={!allContactFilled ? "Please fill in all required fields" : ""}>
-                {status === "loading" ? "Submitting…" : "Place Order"}
-              </button>
+                Place Order
+              </Button>
             </div>
           </>
         )}

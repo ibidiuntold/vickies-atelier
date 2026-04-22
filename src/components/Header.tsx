@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
+import Button from "./Button";
+import { MenuIcon, CloseIcon } from "./Icons";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -33,24 +35,23 @@ export default function Header() {
             </Link>
           ))}
 
-          <Link href="/#contact" onClick={() => setOpen(false)}
-            className="inline-flex items-center justify-center px-5 py-2 rounded-[18px] border border-[var(--brand)] text-[var(--brand)] font-medium text-sm hover:bg-[var(--brand)] hover:text-[#111] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200">
+          <Button variant="secondary" size="sm" href="/#contact" onClick={() => setOpen(false)}>
             Book a Fitting
-          </Link>
+          </Button>
 
-          <Link href="/order" onClick={() => setOpen(false)}
-            className="inline-flex items-center justify-center px-5 py-2 rounded-[18px] bg-[var(--brand)] text-[#111] font-medium text-sm hover:bg-[var(--brand-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200">
+          <Button variant="primary" className="hover:bg-[var(--brand)]" size="sm" href="/order" onClick={() => setOpen(false)}>
             Place an Order
-          </Link>
+          </Button>
         </nav>
 
+        {/* Mobile toggle — kept as native button since it's an icon-only control */}
         <button
-          className="md:hidden bg-transparent border-none text-[var(--text)] text-2xl cursor-pointer p-2 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] focus:rounded"
+          className="md:hidden bg-transparent border-none text-[var(--text)] text-2xl cursor-pointer p-2 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] rounded"
           aria-label={open ? "Close Menu" : "Open Menu"}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
-          {open ? "✕" : "☰"}
+          {open ? <CloseIcon size={20} /> : <MenuIcon size={22} />}
         </button>
 
       </div>

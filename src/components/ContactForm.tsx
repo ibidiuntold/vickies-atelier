@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { EnquiryPayload } from "@/types";
+import Button from "./Button";
+import { useToast } from "./toast";
 
 interface FormErrors {
   name?: string;
@@ -15,6 +17,7 @@ const inputClass = (error?: string) =>
   }`;
 
 export default function ContactForm() {
+  const { toast } = useToast();
   const [form, setForm] = useState<EnquiryPayload>({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errors, setErrors] = useState<FormErrors>({});
@@ -53,8 +56,10 @@ export default function ContactForm() {
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
       setErrors({});
+      toast({ type: "success", title: "Message sent!", message: "We'll be in touch soon." });
     } catch {
       setStatus("error");
+      toast({ type: "error", title: "Something went wrong", message: "Please try again or email us directly." });
     }
   };
 
@@ -94,16 +99,19 @@ export default function ContactForm() {
         {errors.message && <span id="contact-message-error" className="text-red-500 text-xs mt-1" role="alert">{errors.message}</span>}
       </label>
 
-      <button
+      <Button
         type="submit"
+        variant="primary"
+        size="md"
+        isLoading={status === "loading"}
         disabled={status === "loading" || !isFormValid}
-        className="inline-flex items-center justify-center px-6 py-3 rounded-[18px] bg-[var(--brand)] text-[#111] font-medium hover:bg-[var(--brand-hover)] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200"
+        className="w-full"
       >
-        {status === "loading" ? "Sending…" : "Send Enquiry"}
-      </button>
+        Send Enquiry
+      </Button>
 
       {status === "success" && (
-        <p className="text-green-600 dark:text-green-400 text-sm" role="status" aria-live="polite">
+        <p className="text-green-600 text-sm" role="status" aria-live="polite">
           Thank you! We&apos;ll be in touch soon.
         </p>
       )}

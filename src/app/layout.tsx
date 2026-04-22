@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ContactWidgetLoader } from "@/components/ContactWidgetLoader";
+import { ToastProvider } from "@/components/toast";
+import { ToastContainer } from "@/components/toast";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -38,10 +40,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <ContactWidgetLoader />
+        <ToastProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <ContactWidgetLoader />
+          <ToastContainer />
+        </ToastProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
+import Button from './Button';
 
 interface PhotoUploadProps {
   maxFiles?: number;
@@ -182,17 +183,18 @@ export function PhotoUpload({
             {files.map((f) => (
               <div key={f.id} className="relative group rounded-[10px] overflow-hidden border border-[var(--border)]">
                 <img src={f.preview} alt={`Preview of ${f.file.name}`} className="w-full h-24 object-cover" />
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={(e) => { e.stopPropagation(); removeFile(f.id); }}
                   aria-label={`Remove ${f.file.name}`}
-                  className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-150 focus:outline-none"
+                  className="absolute top-1 right-1 !w-6 !h-6 !p-0 !rounded-full !min-h-0 !border-0 bg-black/60 text-white opacity-0 group-hover:opacity-100 focus:opacity-100"
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
-                </button>
+                </Button>
                 <p className="text-[10px] text-[var(--muted)] px-1 py-0.5 truncate">{f.file.name}</p>
               </div>
             ))}

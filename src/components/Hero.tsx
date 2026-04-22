@@ -4,7 +4,7 @@ import { getOptimizedImageProps, getOptimizedUnsplashUrl } from "@/lib/image-uti
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center" role="banner" aria-label="Showcase">
+    <section className="relative min-h-screen flex items-center justify-center" role="banner" aria-label="Showcase">
       {/* Background image */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <Image
@@ -21,7 +21,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 py-24">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 py-16 md:py-24 text-center flex flex-col items-center">
         <h1 className="font-[family-name:var(--font-playfair)] text-[clamp(40px,7vw,76px)] font-bold leading-tight text-white mb-4">
           Vickie&apos;s Atelier
         </h1>
@@ -32,7 +32,7 @@ export default function Hero() {
           A modern fashion house crafting elegance for every moment—made to
           measure, made to mesmerize.
         </p>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/#collections"
             className="inline-flex items-center justify-center px-6 py-3 rounded-[18px] bg-[var(--brand)] text-[#111] font-medium hover:bg-[var(--brand-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200"

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getOptimizedImageProps, getOptimizedUnsplashUrl } from "@/lib/image-utils";
+import { getOptimizedUnsplashUrl } from "@/lib/image-utils";
+import { CheckIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Services — Vickie's Atelier",
@@ -56,7 +57,7 @@ export default function ServicesPage() {
               <ul className="flex flex-col gap-2 mb-6">
                 {["Dedicated stylist for your entire journey", "Transparent turnaround timelines", "1–2 in-person fitting sessions", "Email confirmation with your estimated ready date", "Post-delivery care and alteration support"].map((item) => (
                   <li key={item} className="flex items-center gap-2 text-[var(--text)] text-sm">
-                    <span className="text-[var(--brand)]">✓</span> {item}
+                    <CheckIcon size={16} className="text-[var(--brand)] shrink-0" /> {item}
                   </li>
                 ))}
               </ul>

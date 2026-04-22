@@ -61,7 +61,7 @@ export default function Footer() {
 
       {/* Footnote */}
       <div className="max-w-[1200px] mx-auto px-6 py-4 border-t border-[var(--border)]">
-        <p className="text-sm text-[var(--muted)] text-center">
+        <p className="text-sm text-[var(--muted)] text-center" suppressHydrationWarning>
           &copy; {new Date().getFullYear()} Vickie&apos;s Atelier &bull; All rights reserved
         </p>
       </div>

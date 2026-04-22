@@ -21,7 +21,7 @@ export default function CollectionSection({ id, title, tagline, images }: Collec
             </h3>
             <p className="text-[var(--muted)] text-sm max-w-md">{tagline}</p>
           </div>
-          <div className="flex gap-3 shrink-0">
+          <div className="flex flex-wrap justify-center gap-3 shrink-0">
             <Link
               href={`/consultation?collection=${id}`}
               className="inline-flex items-center justify-center px-5 py-2 rounded-[18px] border border-[var(--brand)] text-[var(--brand)] text-sm font-medium hover:bg-[var(--brand)] hover:text-[#111] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200"

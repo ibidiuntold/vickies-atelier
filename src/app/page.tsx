@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Hero from "@/components/Hero";
 import CollectionSection from "@/components/CollectionSection";
-import { getOptimizedImageProps, getOptimizedUnsplashUrl } from "@/lib/image-utils";
+import { getOptimizedUnsplashUrl } from "@/lib/image-utils";
+import { CheckIcon } from "@/components/Icons";
 import type { ImageItem } from "@/types";
 
 const bespokeImages: ImageItem[] = [
@@ -50,8 +51,8 @@ export default function Home() {
       {/* Our Story */}
       <section id="story" className="py-20 bg-[var(--bg-secondary)]">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row gap-12 items-center">
-            <div className="md:w-1/2 shrink-0">
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-center">
+            <div className="md:w-1/2 text-center md:text-left flex flex-col items-center md:items-start">
               <div className="relative w-full rounded-[18px] overflow-hidden" style={{ aspectRatio: '5/4', maxWidth: 500 }}>
                 <Image
                   src={getOptimizedUnsplashUrl("photo-1558618666-fcd25c85cd64", 500, 400)}
@@ -64,15 +65,15 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 text-center md:text-left flex flex-col items-center md:items-start">
               <h2 className="font-[family-name:var(--font-playfair)] text-[clamp(28px,3vw,40px)] font-semibold text-[var(--text)] mb-4">Our Story</h2>
               <p className="text-[var(--muted)] mb-5">
                 At Vickie&apos;s Atelier, we believe fashion is a language of confidence. Every stitch tells your story—precision cut, hand-finished, and designed to flatter.
               </p>
-              <ul className="flex flex-col gap-2 mb-6">
+              <ul className="flex flex-col gap-2 mb-6 items-start md:items-start">
                 {["Custom pattern-making & fittings", "Ethically sourced premium textiles", "Artisanal craftsmanship & couture finishes"].map((item) => (
                   <li key={item} className="flex items-center gap-2 text-[var(--text)] text-sm">
-                    <span className="text-[var(--brand)]">✓</span> {item}
+                    <CheckIcon size={16} className="text-[var(--brand)] shrink-0" /> {item}
                   </li>
                 ))}
               </ul>
@@ -98,7 +99,7 @@ export default function Home() {
               { id: "photo-1509631179647-0177331693ae", alt: "Tailored suit details" },
               { id: "photo-1512436991641-6745cdb1723f", alt: "Chic ready-to-wear outfit" },
               { id: "photo-1515886657613-9f3515b0c78f", alt: "Flowing bridal fabric" },
-              { id: "photo-1503342217505-b0a15cf70489", alt: "Draped couture detail" },
+              { id: "photo-1469334031218-e382a71b716b", alt: "Draped couture detail" },
             ].map((img) => (
               <div key={img.id} className="relative rounded-[12px] overflow-hidden aspect-[3/4]">
                 <Image
