@@ -1,9 +1,0 @@
-{
-  "[project]/src/components/ContactWidget.tsx [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/src/components/ContactWidget.tsx [app-client] (ecmascript, next/dynamic entry)",
-    "files": [
-      "static/chunks/src_components_ContactWidget_tsx_e1f0f18d._.js",
-      "static/chunks/src_components_ContactWidget_tsx_6196e2fc._.js"
-    ]
-  }
-}
