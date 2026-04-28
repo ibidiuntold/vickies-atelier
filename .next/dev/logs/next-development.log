@@ -1,0 +1,89 @@
+[00:00:03.045] Server  LOG     ✓ Ready in 2.3s
+[00:02:07.147] Server  LOG     ○ Compiling / ...
+[00:02:19.754] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectErrorBoundary router={{...}}>
+      <Head>
+      <__next_root_layout_boundary__>
+        <SegmentViewNode type="layout" pagePath="layout.tsx">
+          <SegmentTrieNode>
+          <link>
+          <script>
+          <script>
+          <script>
+          <script>
+          <RootLayout>
+            <html lang="en" className="playfair_d...">
+              <body>
+                <ToastProvider>
+                  <Header>
+                    <header className="sticky top...">
+                      <div className="max-w-[120...">
+                        <Logo>
+                        <nav className="items-cent..." aria-label="Primary">
+                          <LinkComponent>
+                          <LinkComponent>
+                          <LinkComponent>
+                          <LinkComponent>
+                          <Button>
+                          <Button variant="primary" size="sm" href="/order" onClick={function onClick}>
+                            <LinkComponent href="/order" className="inline-fle..." aria-disabled={false} ...>
+                              <a
++                               className="inline-flex items-center justify-center gap-2 transition-all duration-200 f..."
+-                               className="inline-flex items-center justify-center gap-2 transition-all duration-200 f..."
+                                aria-disabled={false}
+                                ref={function}
+                                onClick={function onClick}
+                                onMouseEnter={function onMouseEnter}
+                                onTouchStart={function onTouchStart}
+                                href="/order"
+                              >
+                        ...
+                  ...
+                    <SegmentViewNode type="page" pagePath="page.tsx">
+                      <SegmentTrieNode>
+                      <Home>
+                        <section>
+                        <Home>
+                          <section id="collections" className="py-20 bg-[...">
+                            <div>
+                            <CollectionSection>
+                              <div id="bespoke" className="py-10 bord...">
+                                <div className="max-w-[120...">
+                                  <div>
+                                  <Carousel images={[...]}>
+                                    <div
++                                     className="relative"
+-                                     className="relative px-6"
+                                    >
++                                     <button
++                                       onClick={function onClick}
++                                       aria-label="Scroll left"
++                                       className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-4 w-10 h..."
++                                     >
+-                                     <div
+-                                       className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
+-                                       style={{scrollbar-width:"none"}}
+-                                     >
+                                      ...
+                            ...
+                        ...
+                    ...
+                  ...
+      ...
+
+[00:02:41.620] Server  WARN    ⚠ Cross origin request detected from 192.168.1.212 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:03:20.012] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:03:23.048] Server  LOG     ○ Compiling /api/calendar/available-slots ...
