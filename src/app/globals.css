@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme Tokens ─────────────────────────────────────────────── */
+
+@theme {
+  --color-brand: #c7a17a;
+  --color-brand-2: #e7d7c9;
+  --font-family-playfair: var(--font-playfair), "Playfair Display", serif;
+  --font-family-inter: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+/* ─── CSS Custom Properties ────────────────────────────────────────────────── */
+
+:root {
+  /* Backgrounds */
+  --bg: #ffffff;
+  --bg-secondary: #f8f8f8;
+  --bg-tertiary: #f0f0f0;
+
+  /* Text */
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+
+  /* Brand */
+  --brand: #c7a17a;
+  --brand-2: #e7d7c9;
+  --brand-hover: #b89168;
+  --brand-light: #f5ede5;
+  --brand-subtle: rgba(199, 161, 122, 0.1);
+
+  /* UI */
+  --border: #e5e5e5;
+  --focus-ring: rgba(199, 161, 122, 0.3);
+  --selection: rgba(199, 161, 122, 0.2);
+
+  /* Font size scale */
+  --font-size-lg: 18px;
+}
+
+:root.dark {
+  /* Backgrounds */
+  --bg: #0c0c0c;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1a1a1a;
+
+  /* Text */
+  --text: #f7f7f7;
+  --muted: #a3a3a3;
+
+  /* Brand */
+  --brand: #c7a17a;
+  --brand-2: #e7d7c9;
+  --brand-hover: #d4b08c;
+  --brand-light: #2a2520;
+  --brand-subtle: rgba(199, 161, 122, 0.15);
+
+  /* UI */
+  --border: #262626;
+  --focus-ring: rgba(199, 161, 122, 0.4);
+  --selection: rgba(199, 161, 122, 0.25);
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+html.dark {
+  background-color: #0c0c0c;
+  color: #f7f7f7;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Dark mode image treatment */
+:root.dark img {
+  filter: brightness(0.95) contrast(1.02);
+}
