@@ -186,7 +186,7 @@ export function PhotoUpload({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={(e) => { e.stopPropagation(); removeFile(f.id); }}
+                  onClick={(e: React.MouseEvent) => { e.stopPropagation(); removeFile(f.id); }}
                   aria-label={`Remove ${f.file.name}`}
                   className="absolute top-1 right-1 !w-6 !h-6 !p-0 !rounded-full !min-h-0 !border-0 bg-black/60 text-white opacity-0 group-hover:opacity-100 focus:opacity-100"
                 >
