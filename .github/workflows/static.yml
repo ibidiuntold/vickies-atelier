@@ -1,0 +1,14 @@
+# This project is deployed via Vercel.
+# Vercel automatically deploys on every push to main through its GitHub integration.
+# This file is kept as a placeholder — the old GitHub Pages workflow has been removed.
+#
+# To set up Vercel deployment:
+#   1. Go to https://vercel.com and sign in with GitHub
+#   2. Click "Add New Project" and import the vickies-atelier repository
+#   3. Add the following environment variables in Vercel project settings:
+#      - GOOGLE_SHEET_ID
+#      - GOOGLE_SERVICE_ACCOUNT_EMAIL
+#      - GOOGLE_PRIVATE_KEY
+#      - SMTP_USER
+#      - SMTP_PASS
+#   4. Every push to main will auto-deploy to production
