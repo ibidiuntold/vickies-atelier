@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import type { Collection, OrderPayload } from "@/types";
 import { PhotoUpload } from "./PhotoUpload";
 import { MeasurementDiagrams } from "./MeasurementDiagrams";
@@ -33,9 +32,6 @@ const emptyForm: OrderPayload = { collection: "bespoke", bust: "", waist: "", hi
 
 const inputCls = (err?: string) =>
   `w-full mt-1 px-4 py-2 rounded-[10px] bg-[var(--bg)] border text-[var(--text)] text-sm placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-colors duration-150 ${err ? "border-red-500" : "border-[var(--border)]"}`;
-
-const btnPrimary = "inline-flex items-center justify-center px-6 py-3 rounded-[18px] bg-[var(--brand)] text-[#111] font-medium hover:bg-[var(--brand-hover)] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200";
-const btnGhost   = "inline-flex items-center justify-center px-6 py-3 rounded-[18px] border border-[var(--brand)] text-[var(--brand)] font-medium hover:bg-[var(--brand)] hover:text-[#111] disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200";
 
 export default function OrderForm({ initialCollection }: OrderFormProps) {
   const { toast } = useToast();
@@ -105,7 +101,7 @@ export default function OrderForm({ initialCollection }: OrderFormProps) {
         <p className="text-[var(--muted)] mb-2">Thank you, <strong className="text-[var(--text)]">{form.name}</strong>. Your {COLLECTIONS.find((c) => c.id === form.collection)?.label} order has been confirmed.</p>
         <p className="text-[var(--brand)] font-medium mb-2">Estimated ready date: {readyDate}</p>
         <p className="text-[var(--muted)] mb-6">A confirmation has been sent to <strong className="text-[var(--text)]">{form.email}</strong>. We will be in touch to schedule your fitting.</p>
-        <Link href="/" className={btnPrimary}>Back to Home</Link>
+        <Button variant="primary" size="md" href="/">Back to Home</Button>
       </div>
     );
   }

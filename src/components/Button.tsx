@@ -35,7 +35,7 @@ const variantStyles: Record<Variant, string> = {
     'bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)]',
     'border border-transparent',
     'shadow-[0_8px_24px_rgba(199,161,122,0.2)]',
-    'hover:opacity-10 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(199,161,122,0.3)]',
+    'hover:opacity-90 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(199,161,122,0.3)] hover:bg-[var(--brand)]',
     'active:translate-y-0 active:scale-[0.98]',
     'disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none',
   ].join(' '),
