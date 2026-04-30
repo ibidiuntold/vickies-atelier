@@ -39,7 +39,7 @@ export default function Header() {
             Book a Fitting
           </Button>
 
-          <Button variant="primary" size="sm" href="/order" onClick={() => setOpen(false)}>
+          <Button variant="primary" className="hover:bg-[var(--brand-hover)]" size="sm" href="/order" onClick={() => setOpen(false)}>
             Place an Order
           </Button>
         </nav>
