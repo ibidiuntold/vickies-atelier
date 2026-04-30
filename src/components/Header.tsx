@@ -44,15 +44,17 @@ export default function Header() {
           </Button>
         </nav>
 
-        {/* Mobile toggle — kept as native button since it's an icon-only control */}
-        <button
-          className="md:hidden bg-transparent border-none text-[var(--text)] text-2xl cursor-pointer p-2 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] rounded"
+        {/* Mobile toggle */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="md:hidden !border-0 !bg-transparent !px-2 !min-h-[44px] !min-w-[44px]"
           aria-label={open ? "Close Menu" : "Open Menu"}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
           {open ? <CloseIcon size={20} /> : <MenuIcon size={22} />}
-        </button>
+        </Button>
 
       </div>
     </header>
