@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import { getOptimizedUnsplashUrl } from "@/lib/image-utils";
 import { CheckIcon } from "@/components/Icons";
+import Button from "@/components/Button";
 
 export const metadata: Metadata = {
   title: "Services — Vickie's Atelier",
@@ -16,9 +16,6 @@ const PROCESS_STEPS = [
   { number: "04", title: "Construction & Fittings", description: "Your garment is built by hand in our Lagos atelier. Couture techniques — French seams, hand-stitched hems, boning, and custom linings — are applied throughout. We schedule one to two fitting sessions during construction so adjustments are made on your body, not on a dress form. The result is a garment that moves with you." },
   { number: "05", title: "Final Delivery", description: "Your finished piece is hand-pressed, inspected, and presented to you in our signature packaging. We walk you through care instructions and styling notes. If any final tweaks are needed after your first wear, we are here. Our relationship with you does not end at delivery — it begins there." },
 ];
-
-const btnPrimary = "inline-flex items-center justify-center px-6 py-3 rounded-[18px] bg-[var(--brand)] text-[#111] font-medium hover:bg-[var(--brand-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200";
-const btnGhost = "inline-flex items-center justify-center px-6 py-3 rounded-[18px] border border-[var(--brand)] text-[var(--brand)] font-medium hover:bg-[var(--brand)] hover:text-[#111] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] transition-all duration-200";
 
 export default function ServicesPage() {
   return (
@@ -61,7 +58,7 @@ export default function ServicesPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/order" className={btnPrimary}>Place an Order</Link>
+              <Button variant="primary" size="md" href="/order">Place an Order</Button>
             </div>
             <div className="md:w-1/2 shrink-0">
               <div className="relative w-full rounded-[18px] overflow-hidden" style={{ aspectRatio: '5/4', maxWidth: 500 }}>
