@@ -105,9 +105,9 @@ export default function ServicesPage() {
           <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-[var(--text)] mb-3">Ready to Begin?</h2>
           <p className="text-[var(--muted)] mb-8">Place your order online and we will reach out to schedule your consultation.</p>
           <div className="flex flex-wrap gap-4 justify-center items-center">
-            <Link href="/order" className={btnPrimary}>Place an Order</Link>
+            <Button variant="primary" size="md" href="/order">Place an Order</Button>
             <span className="text-[var(--muted)]">or</span>
-            <Link href="/#contact" className={btnGhost}>Send an Enquiry</Link>
+            <Button variant="secondary" size="md" href="/#contact">Send an Enquiry</Button>
           </div>
         </div>
       </section>

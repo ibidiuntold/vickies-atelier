@@ -113,7 +113,7 @@ export default function Toast({ toast, onDismiss }: ToastProps) {
         aria-label="Close notification"
         className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/10 focus:outline-none focus:ring-2 focus:ring-black/20 transition-colors"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18" />
           <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
